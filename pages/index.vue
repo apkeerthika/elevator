@@ -7,6 +7,7 @@
   br/
   br/
   h2 {{ next }}
+  h2 {{ current }}
 </template>
 
 
@@ -14,10 +15,12 @@
 import ElevatorButtons from '~/components/ElevatorButtons'
 import FloorButtons from '~/components/FloorButtons'
 
+const sleep = ms => new Promise(res => setTimeout(res, ms));
+
 export default {
   data () {
     return {
-      floors: 3,
+      floors: 5,
       current: 0,
       next: 0
     }
@@ -25,18 +28,23 @@ export default {
   methods: {
     request (i) {
       this.next = i
+    },
+    move (i) {
+      this.current = i
     }
   },
   watch: {
-    next () {
+    async next () {
       if (this.current < this.next) {
         for(let i=this.current; i<=this.next; i++) {
-          this.current = i
+          await sleep(1000)
+          this.move(i)
         }
       }
       else if (this.current > this.next) {
         for(let i=this.current; i>=this.next; i--) {
-          this.current = i
+          await sleep(1000)
+          this.move(i)
         }
       }
     }

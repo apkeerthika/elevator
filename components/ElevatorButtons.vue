@@ -1,16 +1,17 @@
 <template lang="pug">
 .elevator-buttons
-  a.btn(:class="{highlighted: currentFloor == i}", v-for="(f, i) in floors") {{ i }}
+  a.btn(:class="{highlighted: current == i}", v-for="(f, i) in floors") {{ i }}
 </template>
 
 <script>
 export default {
   props: {
-    floors: Number
+    floors: Number,
+    current: Number
   },
   data () {
     return {
-      currentFloor: 0
+
     }
   },
   methods: {

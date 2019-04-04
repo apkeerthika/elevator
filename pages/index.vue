@@ -1,7 +1,7 @@
 <template lang="pug">
 .page
-  elevator-buttons(:floors="floors")
-  floor-buttons(:floors="floors")
+  elevator-buttons(:floors="floors", :current="current")
+  floor-buttons(:floors="floors", :current="current")
 </template>
 
 
@@ -12,7 +12,8 @@ import FloorButtons from '~/components/FloorButtons'
 export default {
   data () {
     return {
-      floors: 3
+      floors: 3,
+      current: 0
     }
   },
   components: {

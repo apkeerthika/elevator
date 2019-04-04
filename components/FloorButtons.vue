@@ -4,13 +4,14 @@
     span {{ i }}
     button up
     button down
-    
+
 </template>
 
 <script>
 export default {
   props: {
-    floors: Number
+    floors: Number,
+    current: Number
   },
   data () {
     return {

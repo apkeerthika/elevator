@@ -27,6 +27,20 @@ export default {
       this.next = i
     }
   },
+  watch: {
+    next () {
+      if (this.current < this.next) {
+        for(let i=this.current; i<=this.next; i++) {
+          this.current = i
+        }
+      }
+      else if (this.current > this.next) {
+        for(let i=this.current; i>=this.next; i--) {
+          this.current = i
+        }
+      }
+    }
+  },
   components: {
     ElevatorButtons,
     FloorButtons

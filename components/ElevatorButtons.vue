@@ -1,6 +1,6 @@
 <template lang="pug">
 .elevator-buttons
-  a.btn(:class="{highlighted: current == i}", v-for="(f, i) in floors") {{ i }}
+  a.btn(:class="{highlighted: current == i}", v-for="(f, i) in floors", @click="select(i)") {{ i }}
 </template>
 
 <script>
@@ -15,7 +15,9 @@ export default {
     }
   },
   methods: {
-
+    select (i) {
+      this.$emit('selected', i)
+    }
   },
   components: {
 
@@ -28,6 +30,7 @@ export default {
 
 
 .btn
+  cursor: pointer
   margin: 0.2rem
   padding: 0.5rem 1rem
   display: inline-block

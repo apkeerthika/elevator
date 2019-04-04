@@ -1,7 +1,12 @@
 <template lang="pug">
 .page
-  elevator-buttons(:floors="floors", :current="current")
+  elevator-buttons(:floors="floors", :current="current", @selected="request")
+  br/
+  br/
   floor-buttons(:floors="floors", :current="current")
+  br/
+  br/
+  h2 {{ next }}
 </template>
 
 
@@ -13,7 +18,13 @@ export default {
   data () {
     return {
       floors: 3,
-      current: 0
+      current: 0,
+      next: 0
+    }
+  },
+  methods: {
+    request (i) {
+      this.next = i
     }
   },
   components: {

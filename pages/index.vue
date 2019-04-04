@@ -1,14 +1,23 @@
 <template lang="pug">
 .page
-  h1 Elevator
+  elevator-buttons(:floors="floors")
+  floor-buttons(:floors="floors")
 </template>
 
 
 <script>
+import ElevatorButtons from '~/components/ElevatorButtons'
+import FloorButtons from '~/components/FloorButtons'
 
 export default {
+  data () {
+    return {
+      floors: 3
+    }
+  },
   components: {
-
+    ElevatorButtons,
+    FloorButtons
   }
 }
 </script>

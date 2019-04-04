@@ -6,8 +6,12 @@
   floor-buttons(:floors="floors", :current="current")
   br/
   br/
-  h2 {{ next }}
-  h2 {{ current }}
+  h2
+    | Next Floor:&nbsp;&nbsp;
+    span {{ next }}
+  h2
+    | Current Floor:&nbsp;&nbsp;
+    span {{ current }}
 </template>
 
 

@@ -1,9 +1,11 @@
 <template lang="pug">
 .floor-button
   .floor(v-for="(f, i) in floors")
-    span {{ i }}
-    button up
-    button down
+    span(:class="{highlighted: current == i}") {{ i }}
+    a.btn up
+    span floor: {{ i }} direction: up
+    a.btn down
+    span floor: {{ i }} direction: down
 
 </template>
 
@@ -19,6 +21,9 @@ export default {
     }
   },
   methods: {
+    select (i) {
+      this.$emit('selected', i)
+    }
 
   },
   components: {
@@ -33,9 +38,16 @@ export default {
   display: flex
   flex-direction: column-reverse
   .floor
-    margin: 1rem
-    button
+    margin: 2rem
+    span
+      padding: 0.5rem
+      &.highlighted
+        border: 1px solid red
+        
+    
+    a.btn
       margin-left: 1rem
-
-
+      border: 1px solid #000
+      padding: 1rem
+      cursor: pointer
 </style>

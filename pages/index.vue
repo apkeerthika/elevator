@@ -26,7 +26,9 @@ export default {
     return {
       floors: 5,
       current: 0,
-      next: 0
+      next: 0,
+      up: [],
+      down: []
     }
   },
   methods: {

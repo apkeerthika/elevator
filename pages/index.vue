@@ -3,7 +3,7 @@
   elevator-buttons(:floors="floors", :current="current", @selected="request")
   br/
   br/
-  floor-buttons(:floors="floors", :current="current")
+  floor-buttons(:floors="floors", :current="current", @selectedUp="addUpRequest")
   br/
   br/
   h2
@@ -12,6 +12,9 @@
   h2
     | Current Floor:&nbsp;&nbsp;
     span {{ current }}
+  h2
+    | Selected Up:&nbsp;&nbsp;
+    span(v-for="(u, i) in up") {{ u }}
 </template>
 
 
@@ -27,8 +30,7 @@ export default {
       floors: 5,
       current: 0,
       next: 0,
-      up: [],
-      down: []
+      up: []
     }
   },
   methods: {
@@ -37,6 +39,10 @@ export default {
     },
     move (i) {
       this.current = i
+    },
+    addUpRequest (i) {
+      console.log(i)
+      this.up.push(i, 'up')
     }
   },
   watch: {

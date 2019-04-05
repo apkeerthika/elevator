@@ -1,11 +1,14 @@
 <template lang="pug">
 .floor-button
   .floor(v-for="(f, i) in floors")
-    span(:class="{highlighted: current == i}") {{ i }}
-    a.btn up
-    span floor: {{ i }} direction: up
-    a.btn down
-    span floor: {{ i }} direction: down
+    span {{ i }}
+    button(@click="select(i)") up
+    button down
+    //- span(:class="{highlighted: current == i}") {{ i }}
+    //- a.btn up
+    //- span floor: {{ i }} direction: up
+    //- a.btn down
+    //- span floor: {{ i }} direction: down
 
 </template>
 
@@ -22,9 +25,8 @@ export default {
   },
   methods: {
     select (i) {
-      this.$emit('selected', i)
+      this.$emit('selectedUp', i)
     }
-
   },
   components: {
 
@@ -43,8 +45,8 @@ export default {
       padding: 0.5rem
       &.highlighted
         border: 1px solid red
-        
-    
+
+
     a.btn
       margin-left: 1rem
       border: 1px solid #000

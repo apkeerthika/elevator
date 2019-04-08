@@ -3,7 +3,7 @@
   elevator-buttons(:floors="floors", :current="current", @selected="addRequests")
   br/
   br/
-  floor-buttons(:floors="floors", :current="current")
+  floor-buttons(:floors="floors", :current="current",@selected="act")
   br/
   br/
   h2
@@ -13,8 +13,11 @@
     | Current Floor:&nbsp;&nbsp;
     span {{ current }}
   h2
-    | Selected Up:&nbsp;&nbsp;
+    | Selected request:&nbsp;&nbsp;
     span.up {{ requests.toString() }}
+  h2
+    | Selected up:&nbsp;&nbsp;
+    span {{ acts.toString() }}
 
   input(type="number", v-model="fullfill")
   button(@click="done(fullfill)") Do {{ fullfill }}
@@ -39,6 +42,7 @@ export default {
       fullfill: 0,
       // next: 0,
       requests: [],
+      acts: [],
       direction: 1
     }
   },
@@ -68,6 +72,11 @@ export default {
       // console.log(i)
       // this.next = i
       this.requests.push(i)
+    },
+    act (i) {
+      // console.log(i)
+      // this.next = i
+      this.acts.push(i)
     },
     done (f) {
       // console.log(f)

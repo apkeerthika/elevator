@@ -5,10 +5,8 @@
     //- button(@click="select(i)") up
     //- button down
     span(:class="{highlighted: current == i}") {{ i }}
-    a.btn up
-    span floor: {{ i }} direction: up
+    a.btn(@click="select(i)") up
     a.btn down
-    span floor: {{ i }} direction: down
 
 </template>
 
@@ -25,7 +23,7 @@ export default {
   },
   methods: {
     select (i) {
-      this.$emit('selectedUp', i)
+      this.$emit('selected',i)
     }
   },
   components: {

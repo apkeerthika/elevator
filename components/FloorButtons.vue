@@ -1,14 +1,14 @@
 <template lang="pug">
 .floor-button
   .floor(v-for="(f, i) in floors")
-    span {{ i }}
-    button(@click="select(i)") up
-    button down
-    //- span(:class="{highlighted: current == i}") {{ i }}
-    //- a.btn up
-    //- span floor: {{ i }} direction: up
-    //- a.btn down
-    //- span floor: {{ i }} direction: down
+    //- span {{ i }}
+    //- button(@click="select(i)") up
+    //- button down
+    span(:class="{highlighted: current == i}") {{ i }}
+    a.btn up
+    span floor: {{ i }} direction: up
+    a.btn down
+    span floor: {{ i }} direction: down
 
 </template>
 

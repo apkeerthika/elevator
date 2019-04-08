@@ -1,9 +1,9 @@
 <template lang="pug">
 .page
-  elevator-buttons(:floors="floors", :current="current", @selected="request")
+  elevator-buttons(:floors="floors", :current="current", @selected="addRequests")
   br/
   br/
-  floor-buttons(:floors="floors", :current="current", @selectedUp="addUpRequest")
+  floor-buttons(:floors="floors", :current="current")
   br/
   br/
   h2
@@ -14,11 +14,18 @@
     span {{ current }}
   h2
     | Selected Up:&nbsp;&nbsp;
-    span(v-for="(u, i) in up") {{ u }}
+    span.up {{ requests.toString() }}
+
+  input(type="number", v-model="fullfill")
+  button(@click="done(fullfill)") Do {{ fullfill }}
+  h2
+    | Delete Finished level:&nbsp;&nbsp;
+    span {{ fullfill }}
 </template>
 
 
 <script>
+import _ from 'lodash'
 import ElevatorButtons from '~/components/ElevatorButtons'
 import FloorButtons from '~/components/FloorButtons'
 
@@ -29,37 +36,67 @@ export default {
     return {
       floors: 5,
       current: 0,
-      next: 0,
-      up: []
+      fullfill: 0,
+      // next: 0,
+      requests: [],
+      direction: 1
+    }
+  },
+  computed: {
+    next () {
+      if (this.direction == 1) {
+        console.log(this.direction)
+        return _(this.requests)
+                .filter(request => this.current < this.floors)
+                .min()
+      } else if (this.direction == -1) {
+        console.log(this.direction)
+        return _(this.requests)
+                .filter(request => this.current > this.floors)
+                .max()
+      } else {
+        console.log(this.done())
+        this.done()
+      }
     }
   },
   methods: {
-    request (i) {
-      this.next = i
-    },
     move (i) {
       this.current = i
     },
-    addUpRequest (i) {
-      console.log(i)
-      this.up.push(i, 'up')
+    addRequests (i) {
+      // console.log(i)
+      // this.next = i
+      this.requests.push(i)
+    },
+    done (f) {
+      // console.log(f)
+      const removedItem = _.remove(this.requests, f)
+      return removedItem
+      // this.$delete(this.requests, f)
     }
   },
   watch: {
     async next () {
       if (this.current < this.next) {
+        console.log('labsk', this.current, this.next)
         for(let i=this.current; i<=this.next; i++) {
           await sleep(1000)
           this.move(i)
+          this.direction = 1
         }
       }
       else if (this.current > this.next) {
+        console.log('labsk', this.current, this.next)
         for(let i=this.current; i>=this.next; i--) {
           await sleep(1000)
           this.move(i)
+          this.direction = -1
         }
       }
     }
+  },
+  mounted () {
   },
   components: {
     ElevatorButtons,
@@ -68,35 +105,8 @@ export default {
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+<style lang="sass" scoped>
+.up
+  // border: 1px solid #e4e5e7
+  // padding: 0.5rem 1.2rem
 </style>
